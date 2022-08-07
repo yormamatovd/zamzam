@@ -1,0 +1,48 @@
+server:
+  port: 8020
+spring:
+  application:
+    name: GATEWAY
+    
+    
+auth-location: http://localhost:8083/local/auth/check-token
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: registerMS
+#          uri: http://localhost:8085/
+#          predicates:
+#            - Path=/register/**
+#
+#        - id: login
+#          uri: http://localhost:8083/
+#          predicates:
+#            - Path=/auth/login
+#
+#        - id: authMS
+#          uri: http://localhost:8083/
+#          predicates:
+#            - Path=/auth/get-my-id/
+#
+#
+#        - id: clientMS
+#          uri: http://localhost:8084/
+#          predicates:
+#            - Path=/client/**
+#          filters:
+#            - AuthFilter
+#
+#        - id: infoMS
+#          uri: http://localhost:8082/
+#          predicates:
+#            - Path=/info/**
+#            - Path=/verify-info/**
+#          filters:
+#            - AuthFilter
+#
+#        - id: attachmentMS
+#          uri: http://localhost:8081/
+#          predicates:
+#            - Path=/file/**
+#          filters:
+#            - AuthFilter

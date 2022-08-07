@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="seller" />
+        <module name="product" />
+        <module name="attachment" />
+        <module name="auth" />
+        <module name="eureka" />
+        <module name="system-user" />
+        <module name="client" />
+        <module name="info" />
+        <module name="order" />
+        <module name="getaway" />
+        <module name="register" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="attachment" target="11" />
+      <module name="auth" target="11" />
+      <module name="client" target="11" />
+      <module name="eureka" target="11" />
+      <module name="getaway" target="11" />
+      <module name="info" target="11" />
+      <module name="order" target="11" />
+      <module name="product" target="11" />
+      <module name="register" target="11" />
+      <module name="seller" target="11" />
+      <module name="system-user" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="attachment" options="-parameters" />
+      <module name="auth" options="-parameters" />
+      <module name="client" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="getaway" options="-parameters" />
+      <module name="info" options="-parameters" />
+      <module name="order" options="-parameters" />
+      <module name="product" options="-parameters" />
+      <module name="register" options="-parameters" />
+      <module name="seller" options="-parameters" />
+      <module name="system-user" options="-parameters" />
+    </option>
+  </component>
+</project>

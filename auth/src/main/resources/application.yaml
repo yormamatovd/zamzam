@@ -1,0 +1,13 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: AUTH-EMAIL
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+jwt:
+  expire-time-minutes: 60
+  key: gfgergrehtherghjetnhjetoh

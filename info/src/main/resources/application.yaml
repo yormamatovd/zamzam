@@ -1,0 +1,46 @@
+server:
+  port: 8082
+
+
+spring:
+  application:
+    name: INFO
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: 2014
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  mail:
+    subject: OTP for Zilol Suv
+    host: smtp.gmail.com
+    port: 587
+    username: zilolsuvservice@gmail.com
+    password: jpianrjmchmadzmg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+
+email:
+  otp:
+    expiration-time-seconds: 120
+
+info:
+  default:
+    photo-id: dfe0476f-7ae3-4dca-ae3a-f43c4ee8816d
+
+jwt:
+  custom-secret-key: grgherherherher

@@ -1,0 +1,7 @@
+# in the com/foo/package
+<html>
+<body>
+<p style="font-size: 18px">Tasdiqlash kodi:
+<p style="font-size: 22px">${code}</p></p>
+</body>
+</html>
