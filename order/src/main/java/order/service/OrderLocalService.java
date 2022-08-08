@@ -15,7 +15,6 @@ public interface OrderLocalService {
 
     ResponseEntity<OrderDto> setEstimated(Long dateTimeSeconds);
 
-    ResponseEntity<OrderDto> makeOrder(OrderRegDto dto);
 
     ResponseEntity<OrderDto> cancelOrder(Long orderId, Long clientId);
 }
