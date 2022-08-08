@@ -46,4 +46,6 @@ public class Order extends AbsMain {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status;
+
+    private Double paidAmount;
 }

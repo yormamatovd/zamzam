@@ -1,7 +1,9 @@
 package order.mapper;
 
 import order.entity.Order;
+import order.model.ClientDto;
 import order.model.OrderDto;
+import order.model.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
@@ -14,9 +16,11 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 @Component
 public interface MapstructMapper {
 
-    @Mapping(target = "type", expression = "java(info.getType().name())")
-    @Mapping(target = "photoId", expression = "java(info.getPhotoId().toString())")
-    OrderDto orderToOrderDto(Order order);
+    @Mapping(target = "status", expression = "java(order.getStatus().name())")
+    @Mapping(target = "product", source = "productDto")
+    @Mapping(target = "client", source = "clientDto")
+    @Mapping(target = "client", source = "clientDto")
+    OrderDto orderToOrderDto(Order order, ProductDto productDto, ClientDto clientDto);
 
     List<OrderDto> orderToOrderDto(List<Order> orders);
 }
