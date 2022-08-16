@@ -7,7 +7,7 @@ import register.model.register.RegisterUserDto;
 import register.model.token.TokenDto;
 
 public interface RegisterEmailService {
-    ResponseEntity<ClientDto> verifyRegister(OtpVerify otpVerify);
+    ResponseEntity<Long> verifyRegister(OtpVerify otpVerify);
 
     ResponseEntity<TokenDto> register(RegisterUserDto regDto);
 }

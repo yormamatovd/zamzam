@@ -4,11 +4,113 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b772fd39-9f33-40c7-af3e-0680818ee434" name="Changes" comment="" />
+    <list default="true" id="b772fd39-9f33-40c7-af3e-0680818ee434" name="Changes" comment="Feign templates created &#10;MakeOrder service was created&#10;Order jpa repository created">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/info/src/main/java/info/model/SellerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/java/order/controller/OrderClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/java/order/controller/OrderSellerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/java/order/feign/MainTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/java/order/service/OrderSellerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/java/order/service/impl/OrderSellerServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/register/src/main/java/register/feign/SellerTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/register/src/main/java/register/model/SellerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/annotations/Gmail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/annotations/Name.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/annotations/OtpCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/annotations/Password.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/annotations/Phone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seller/src/main/java/seller/model/RegisterUserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_config_client_3_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_config_3_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attachment/attachment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/attachment/attachment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/controller/ClientController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/controller/ClientLocalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/controller/ClientLocalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/feign/InfoTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/feign/InfoTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/service/ClientLocalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/service/ClientLocalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/service/ClientService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/service/impl/ClientLocalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/service/impl/ClientLocalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/service/impl/ClientServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/getaway/src/main/java/getaway/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/getaway/src/main/java/getaway/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getaway/src/main/java/getaway/filters/RouterValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/getaway/src/main/java/getaway/filters/RouterValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/info.iml" beforeDir="false" afterPath="$PROJECT_DIR$/info/info.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/annotation/Gmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/annotation/Gmail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/controller/InfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/controller/InfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/controller/InfoLocalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/controller/InfoLocalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/enums/ApiStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/enums/ApiStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/service/InfoLocalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/service/InfoLocalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/service/InfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/service/InfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/service/impl/InfoLocalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/service/impl/InfoLocalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/src/main/java/info/service/impl/InfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/info/src/main/java/info/service/impl/InfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/order.iml" beforeDir="false" afterPath="$PROJECT_DIR$/order/order.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/OrderApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/OrderApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/controller/OrderLocalController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/enums/ApiStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/enums/ApiStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/feign/InfoTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/feign/InfoTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/helper/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/mapper/MapstructMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/mapper/MapstructMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/model/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/model/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/model/OrderRegDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/model/OrderRegDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/repository/OrderRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/repository/OrderRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/service/OrderLocalService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/service/impl/OrderLocalServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/java/order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/java/order/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/product.iml" beforeDir="false" afterPath="$PROJECT_DIR$/product/product.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/java/product/enums/ApiStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/java/product/enums/ApiStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/java/product/feign/InfoTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/java/product/feign/InfoTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/java/product/feign/SellerTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/register/src/main/java/register/controller/RegisterEmailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/register/src/main/java/register/controller/RegisterEmailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register/src/main/java/register/feign/ClientTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/register/src/main/java/register/feign/ClientTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register/src/main/java/register/service/RegisterEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/register/src/main/java/register/service/RegisterEmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register/src/main/java/register/service/impl/RegisterEmailServiceIpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/register/src/main/java/register/service/impl/RegisterEmailServiceIpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/seller.iml" beforeDir="false" afterPath="$PROJECT_DIR$/seller/seller.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/controller/SellerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/controller/SellerLocalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/seller/src/main/java/seller/controller/SellerLocalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/feign/ClientTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/feign/InfoTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/seller/src/main/java/seller/feign/InfoTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/service/SellerLocalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/seller/src/main/java/seller/service/SellerLocalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/service/SellerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/service/impl/SellerLocalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/seller/src/main/java/seller/service/impl/SellerLocalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seller/src/main/java/seller/service/impl/SellerServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/controller/SystemUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/system-user/src/main/java/systemuser/controller/SystemUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/feign/ClientTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/feign/InfoTemplate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/feign/SellerTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/system-user/src/main/java/systemuser/feign/SellerTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/service/SystemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/system-user/src/main/java/systemuser/service/SystemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/src/main/java/systemuser/service/impl/SystemUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/system-user/src/main/java/systemuser/service/impl/SystemUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-user/system-user.iml" beforeDir="false" afterPath="$PROJECT_DIR$/system-user/system-user.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/info/src/main/java/info/controller/InfoController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/info/src/main/java/info/service/InfoService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/info/src/main/java/info/service/impl/InfoServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -18,19 +120,55 @@
     </option>
   </component>
   <component name="ProjectId" id="2D1wFHKmWUNDiI3dU1lk7aVVeqP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/algo/HDD/java/zamzam/seller/src/main/java/seller&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;652e7d570aa48c619b880f71c3d41c59&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="order.controller" />
+      <recent name="order.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/seller/src/main/java/seller" />
+      <recent name="$PROJECT_DIR$/order/src/main/java/order/model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="seller.model" />
+      <recent name="register.model" />
+      <recent name="info.model" />
+      <recent name="product.model" />
+      <recent name="order.exception" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -38,7 +176,20 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ProductApplication">
+  <component name="RunManager" selected="Application.Helper">
+    <configuration name="Helper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="order.helper.Helper" />
+      <module name="order" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="order.helper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="zamzam" />
       <method v="2">
@@ -129,6 +280,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Helper" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -139,10 +295,46 @@
       <option name="presentableId" value="Default" />
       <updated>1659879792721</updated>
       <workItem from="1659879794151" duration="84000" />
+      <workItem from="1659879904711" duration="9242000" />
+      <workItem from="1660389869581" duration="6569000" />
+      <workItem from="1660397638564" duration="5856000" />
+      <workItem from="1660423975708" duration="1229000" />
+      <workItem from="1660425541551" duration="668000" />
+      <workItem from="1660426413481" duration="29000" />
+      <workItem from="1660426460108" duration="315000" />
+      <workItem from="1660458014711" duration="3365000" />
+      <workItem from="1660563016857" duration="8083000" />
     </task>
+    <task id="LOCAL-00001" summary="Feign templates created &#10;MakeOrder service was created&#10;Order jpa repository created">
+      <created>1659951540059</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659951540059</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Feign templates created &#10;MakeOrder service was created&#10;Order jpa repository created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feign templates created &#10;MakeOrder service was created&#10;Order jpa repository created" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

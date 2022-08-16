@@ -18,6 +18,4 @@ public interface InfoTemplate {
     @GetMapping("local/info")
     ResponseEntity<InfoDto> getInfo(@RequestParam(name = "infoId") Long infoId);
 
-    @GetMapping("local/info/client-info")
-    ResponseEntity<InfoDto> getClientInfo(@RequestParam(name = "infoId") Long id);
 }

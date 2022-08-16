@@ -9,6 +9,6 @@ import product.model.InfoDto;
 @FeignClient("INFO")
 public interface InfoTemplate {
 
-    @GetMapping("local/info/seller-info")
-    ResponseEntity<InfoDto> getSellerInfo(@RequestParam(name = "infoId") Long id);
+    @GetMapping("/info/seller")
+    ResponseEntity<InfoDto> getSellerInfo(@RequestParam(name = "sellerId") Long id);
 }

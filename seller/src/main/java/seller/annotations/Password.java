@@ -1,4 +1,4 @@
-package info.annotation;
+package seller.annotations;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -12,29 +12,34 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = Gmail.GmailValidator.class)
+@Constraint(validatedBy = Password.PasswordValidator.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-public @interface Gmail {
-    String message() default "Gmail(example@gmail.com) is mandatory";
+public @interface Password {
+    String message() default "Password(min_length=5,max_length=15, DIGITS AND ALPHABETIC) is mandatory";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    class GmailValidator implements ConstraintValidator<Gmail, String> {
+    class PasswordValidator implements ConstraintValidator<Password, String> {
+
         @Override
-        public void initialize(Gmail constraintAnnotation) {
+        public void initialize(Password constraintAnnotation) {
         }
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
             if (value == null) return false;
-            return value.toLowerCase().endsWith("@gmail.com") && value.length() > 11;
-        }
-
-        public static boolean isValid(String email) {
-            return new GmailValidator().isValid(email, null);
+            if (value.length() < 5 || value.length() > 15) return false;
+            for (int i = 0; i < value.length(); i++) {
+                if (Character.isDigit(value.charAt(i))) {
+                    for (int i1 = 0; i1 < value.length(); i1++) {
+                        if (Character.isAlphabetic(value.charAt(i1))) return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

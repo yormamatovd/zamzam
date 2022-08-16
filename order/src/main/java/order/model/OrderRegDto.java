@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 public class OrderRegDto {
 
 
+    @NotNull
     private Long productId;
 
     @NotNull(message = "count is mandatory")

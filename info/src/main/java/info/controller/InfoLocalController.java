@@ -2,6 +2,7 @@ package info.controller;
 
 import info.model.ClientDto;
 import info.model.RegisterUserDto;
+import info.model.SellerDto;
 import info.model.info.InfoDto;
 import info.service.InfoLocalService;
 import lombok.RequiredArgsConstructor;
@@ -36,21 +37,6 @@ public class InfoLocalController {
     public ResponseEntity<InfoDto> createInfo(@RequestBody RegisterUserDto dto) {
         return service.create(dto);
     }
-
-    @GetMapping("/client-info")
-    ResponseEntity<ClientDto> getClientInfo(@RequestParam(name = "infoId") Long id) {
-        return service.getClientInfo(id);
-    }
-    @GetMapping("/seller-info")
-    ResponseEntity<InfoDto> getSellerInfo(@RequestParam(name = "infoId") Long id) {
-        return service.getSellerInfo(id);
-    }
-    @GetMapping("/sellers-infos")
-    ResponseEntity<List<InfoDto>> getSellersInfo(@RequestParam(name = "page",required = false) Integer page) {
-        return service.getSellersInfo(page);
-    }
-
-
 
     @PutMapping("/to-seller")
     ResponseEntity<InfoDto> toSeller(@RequestParam(name = "infoId") Long id) {

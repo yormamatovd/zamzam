@@ -8,16 +8,14 @@ import order.entity.abs.AbsMain;
 import order.enums.OrderStatus;
 import order.helper.Helper;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order extends AbsMain {
 
     @Column(nullable = false)
@@ -25,6 +23,9 @@ public class Order extends AbsMain {
 
     @Column(nullable = false)
     private Long clientId;
+
+    @Column(nullable = false)
+    private Long sellerId;
 
     @Column(nullable = false)
     private Integer count;

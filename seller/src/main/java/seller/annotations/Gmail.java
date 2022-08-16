@@ -1,4 +1,4 @@
-package info.annotation;
+package seller.annotations;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -31,10 +31,6 @@ public @interface Gmail {
         public boolean isValid(String value, ConstraintValidatorContext context) {
             if (value == null) return false;
             return value.toLowerCase().endsWith("@gmail.com") && value.length() > 11;
-        }
-
-        public static boolean isValid(String email) {
-            return new GmailValidator().isValid(email, null);
         }
     }
 }

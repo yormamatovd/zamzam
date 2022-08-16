@@ -2,12 +2,12 @@ package seller.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import seller.model.RegisterUserDto;
 import seller.model.SellerDto;
 import seller.service.SellerLocalService;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("local/seller")
@@ -18,7 +18,7 @@ public class SellerLocalController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<SellerDto> createSeller(@RequestParam(name = "infoId") Long infoId){
-        return service.create(infoId);
+    public ResponseEntity<SellerDto> createSeller(@Valid @RequestBody RegisterUserDto registerUserDto) {
+        return service.create(registerUserDto);
     }
 }

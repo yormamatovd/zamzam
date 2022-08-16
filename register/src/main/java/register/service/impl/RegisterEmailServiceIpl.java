@@ -2,7 +2,6 @@ package register.service.impl;
 
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
-import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +14,11 @@ import register.exceptions.NotAcceptableException;
 import register.exceptions.SystemException;
 import register.feign.ClientTemplate;
 import register.feign.InfoTemplate;
+import register.feign.SellerTemplate;
 import register.helper.Helper;
 import register.jwt.JWTProvider;
 import register.model.ClientDto;
+import register.model.SellerDto;
 import register.model.register.OtpVerify;
 import register.model.register.RegisterUserDto;
 import register.model.token.ProfileTokenDto;
@@ -26,10 +27,13 @@ import register.model.token.TokenInfoDto;
 import register.service.EmailService;
 import register.service.RegisterEmailService;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class RegisterEmailServiceIpl implements RegisterEmailService {
     private final ClientTemplate clientTemplate;
+    private final SellerTemplate sellerTemplate;
     private final EmailService emailService;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
@@ -39,7 +43,7 @@ public class RegisterEmailServiceIpl implements RegisterEmailService {
     private Long otpLifetimeSeconds;
 
     @Override
-    public ResponseEntity<ClientDto> verifyRegister(OtpVerify otpVerify) {
+    public ResponseEntity<Long> verifyRegister(OtpVerify otpVerify) {
         String subject = jwtProvider.getSubjectFromToken(otpVerify.getToken());
         ProfileTokenDto tokenDto = new Gson().fromJson(subject, ProfileTokenDto.class);
         //check expired
@@ -50,8 +54,6 @@ public class RegisterEmailServiceIpl implements RegisterEmailService {
             throw new BadRequestException(ApiStatus.WRONG_CODE);
 
         RegisterUserDto registerUserDto = new Gson().fromJson(tokenDto.getBody(), RegisterUserDto.class);
-        registerUserDto.setType(UserType.CLIENT_USER);
-        registerUserDto.setPassword(registerUserDto.getPassword());
 
         try {
             ResponseEntity<Boolean> response = infoTemplate.existEmail(registerUserDto.getEmail());
@@ -62,13 +64,25 @@ public class RegisterEmailServiceIpl implements RegisterEmailService {
             else  throw new SystemException(ApiStatus.SERVER_ERROR.name());
         }
 
-        try {
-            ResponseEntity<ClientDto> response = clientTemplate.createClient(registerUserDto);
-            return ResponseEntity.ok(response.getBody());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            throw new SystemException(ApiStatus.SERVER_ERROR.name());
+        if (registerUserDto.getType()==UserType.SELLER_USER){
+            try {
+                ResponseEntity<SellerDto> response = sellerTemplate.createSeller(registerUserDto);
+                return ResponseEntity.ok(Objects.requireNonNull(response.getBody()).getInfo().getId());
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                throw new SystemException(ApiStatus.SERVER_ERROR.name());
+            }
+        }else {
+            try {
+                ResponseEntity<ClientDto> response = clientTemplate.createClient(registerUserDto);
+                return ResponseEntity.ok(Objects.requireNonNull(response.getBody()).getInfo().getId());
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                throw new SystemException(ApiStatus.SERVER_ERROR.name());
+            }
         }
+
+
     }
 
     @Override

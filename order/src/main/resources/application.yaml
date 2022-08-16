@@ -1,0 +1,19 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: ORDER
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: 2014
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+

@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderDto {
 
-    private ProductDto product;
+    private Long productId;
 
-    private ClientDto client;
+    private Long clientId;
 
     private Integer count;
 

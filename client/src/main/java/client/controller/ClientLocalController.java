@@ -15,11 +15,6 @@ import javax.validation.Valid;
 public class ClientLocalController {
     private final ClientLocalService service;
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteClient(@RequestParam(name = "infoId") Long id){
-        return service.deleteClient(id);
-    }
-
     @PostMapping("/create")
     public ResponseEntity<ClientDto> createClient(@Valid @RequestBody RegisterUserDto registerUserDto) {
         return service.create(registerUserDto);

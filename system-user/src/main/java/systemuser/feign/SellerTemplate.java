@@ -8,6 +8,5 @@ import systemuser.model.SellerDto;
 
 @FeignClient("SELLER")
 public interface SellerTemplate {
-    @PostMapping("local/seller/create")
-    ResponseEntity<SellerDto> createSeller(@RequestParam(name = "infoId") Long infoId);
+
 }

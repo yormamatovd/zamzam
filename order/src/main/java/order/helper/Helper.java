@@ -1,8 +1,6 @@
 package order.helper;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Random;
 
 public class Helper {
@@ -32,11 +30,14 @@ public class Helper {
     public static long currentSeconds() {
         return LocalDateTime.ofInstant(Instant.now(), ZoneId.of(serverTimeZone)).atZone(ZoneId.of(serverTimeZone)).toEpochSecond();
     }
-
     public static boolean hasDigit(String text) {
         for (int i = 0; i < text.length(); i++) {
             if (Character.isDigit(text.charAt(i))) return true;
         }
         return false;
+    }
+
+    public static ZonedDateTime currentZonedDateTime() {
+        return LocalDateTime.ofInstant(Instant.now(), ZoneId.of(serverTimeZone)).atZone(ZoneId.of(serverTimeZone));
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import register.model.ClientDto;
 import register.model.register.RegisterUserDto;
 
-@Component
 @FeignClient("CLIENT")
 public interface ClientTemplate {
 

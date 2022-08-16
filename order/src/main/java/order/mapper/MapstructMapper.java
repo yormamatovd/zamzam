@@ -17,10 +17,7 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 public interface MapstructMapper {
 
     @Mapping(target = "status", expression = "java(order.getStatus().name())")
-    @Mapping(target = "product", source = "productDto")
-    @Mapping(target = "client", source = "clientDto")
-    @Mapping(target = "client", source = "clientDto")
-    OrderDto orderToOrderDto(Order order, ProductDto productDto, ClientDto clientDto);
+    OrderDto orderToOrderDto(Order order);
 
     List<OrderDto> orderToOrderDto(List<Order> orders);
 }

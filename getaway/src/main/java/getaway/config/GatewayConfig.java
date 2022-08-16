@@ -30,24 +30,27 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8084/"))
 
-                .route("info", r -> r.path("/info/update/**")
-                        .filters(f -> f.filter(filter))
-                        .uri("http://localhost:8082/"))
-
-                .route("login", r -> r.path("/info", "/verify-update/**")
+                .route("info", r -> r.path("/info/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8082/"))
 
                 .route("attachmentMS", r -> r.path("/file/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8081/"))
+
                 .route("systemMs", r -> r.path("/system/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8086/"))
+
                 .route("sellerMs", r -> r.path("/seller/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8087/"))
+
                 .route("productMs", r -> r.path("/product/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("http://localhost:8088/"))
+
+                .route("orderMs", r -> r.path("/product/**")
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8088/"))
                 .build();

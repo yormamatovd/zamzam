@@ -1,19 +1,19 @@
 package info.service;
 
-import info.model.RegisterUserDto;
-import info.model.info.InfoDto;
-import info.model.info.UpdateEmailDto;
-import info.model.info.UpdateNameSurnameDto;
-import info.model.info.UpdatePasswordDto;
-import info.model.token.CheckCodeDto;
-import info.model.token.TokenDto;
+import info.model.ClientDto;
+import info.model.SellerDto;
 import org.springframework.http.ResponseEntity;
 
-import java.util.UUID;
+import java.util.List;
 
 public interface InfoService {
 
     ResponseEntity<Boolean> existByEmail(String email);
 
+    ResponseEntity<ClientDto> getClientInfo(Long id);
+
+    ResponseEntity<SellerDto> getSellerInfo(Long id);
+
+    ResponseEntity<List<SellerDto>> getSellersInfo(Integer page);
 
 }

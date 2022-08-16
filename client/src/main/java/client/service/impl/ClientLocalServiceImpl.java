@@ -2,7 +2,6 @@ package client.service.impl;
 
 import client.entity.Client;
 import client.enums.ApiStatus;
-import client.exceptions.NotFoundException;
 import client.exceptions.SystemException;
 import client.feign.InfoTemplate;
 import client.model.ClientDto;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,15 +21,6 @@ public class ClientLocalServiceImpl implements ClientLocalService {
 
     private final ClientRepo repo;
     private final InfoTemplate infoTemplate;
-
-    @Override
-    public ResponseEntity<String> deleteClient(Long id) {
-        Optional<Client> clientOptional = repo.findByInfoIdAndActiveTrue(id);
-        if (clientOptional.isEmpty()) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
-        clientOptional.get().setActive(false);
-        repo.save(clientOptional.get());
-        return ResponseEntity.ok("OK");
-    }
 
     @Override
     public ResponseEntity<ClientDto> create(RegisterUserDto registerUserDto) {
