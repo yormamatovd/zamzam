@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import seller.annotations.Gmail;
 import seller.annotations.Name;
-import seller.annotations.Password;
 import seller.annotations.Phone;
 import seller.enums.UserType;
 
@@ -21,7 +20,7 @@ public class RegisterUserDto {
     @Phone
     private String phone;
 
-    @Password
+//    @Password //tayyor encrypt password keladi
     private String password;
 
     @Name
