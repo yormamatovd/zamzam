@@ -1,7 +1,18 @@
-# in the com/foo/package
-<html>
+<html lang="">
+<head>
+    <style>
+        #code-space{
+            background-color: #d4d4d4;
+            font-size: 24px;
+            font-weight: bold;
+            display: inline;
+        }
+    </style>
+    <title>Code</title>
+</head>
 <body>
-<p style="font-size: 18px">Tasdiqlash kodi:
-<p style="font-size: 22px">${code}</p></p>
+<p style="font-size: 18px">Tasdiqlash kodi:</p>
+    <p id="code-space">${code}</p>
+
 </body>
 </html>

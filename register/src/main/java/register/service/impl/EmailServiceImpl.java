@@ -6,12 +6,13 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import register.service.EmailService;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${spring.mail.subject}")
     private String otpEmailSubject;
+    @Value("${spring.mail.host}")
+    private String mailFrom;
 
     @Override
     public boolean sendMail(String email, String message) {
@@ -37,22 +40,36 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public boolean sendCode(String email, String code) {
+    public boolean sendCode(String mailTo, String code) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            mimeMessageHelper.setSubject(code);
+            mimeMessageHelper.setFrom(mailFrom);
+            mimeMessageHelper.setTo(mailTo);
+            String s = geContentFromTemplate(code);
+            mimeMessageHelper.setText(s, true);
+            javaMailSender.send(mimeMessageHelper.getMimeMessage());
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public String geContentFromTemplate(String code) {
+        StringWriter stringWriter = new StringWriter();
+
         try {
             VelocityContext velocityContext = new VelocityContext();
             velocityContext.put("code", code);
-            StringWriter stringWriter = new StringWriter();
-
             velocityEngine.mergeTemplate("templates/send-code.vm", "UTF-8", velocityContext, stringWriter);
-
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(email);
-            msg.setSubject(otpEmailSubject);
-            msg.setText(stringWriter.toString());
-            javaMailSender.send(msg);
-            return true;
+            return stringWriter.toString();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
+        return "";
     }
 }
+

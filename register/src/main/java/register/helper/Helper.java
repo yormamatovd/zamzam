@@ -18,7 +18,12 @@ public class Helper {
         for (int i = 0; i < length; i++) {
             otp.append(numbers.charAt(random.nextInt(numbers.length())));
         }
-        return otp.toString();
+        StringBuilder code = new StringBuilder();
+        for (int i = 1; i < otp.toString().length() + 1; i++) {
+            code.append(otp.toString().charAt(i - 1));
+            if (i % 3 == 0 && i != otp.toString().length()) code.append("-");
+        }
+        return code.toString();
     }
     public static long currentSeconds() {
         return LocalDateTime.ofInstant(Instant.now(), ZoneId.of(serverTimeZone)).atZone(ZoneId.of(serverTimeZone)).toEpochSecond();
