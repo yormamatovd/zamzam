@@ -6,6 +6,10 @@ spring:
     
     
 auth-location: http://localhost:8083/local/auth/check-token
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
 #  cloud:
 #    gateway:
 #      routes:

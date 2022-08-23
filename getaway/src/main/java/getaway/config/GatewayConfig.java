@@ -50,9 +50,9 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("http://localhost:8088/"))
 
-                .route("orderMs", r -> r.path("/product/**")
+                .route("orderMs", r -> r.path("/order/**")
                         .filters(f -> f.filter(filter))
-                        .uri("http://localhost:8088/"))
+                        .uri("http://localhost:8089/"))
                 .build();
     }
 
