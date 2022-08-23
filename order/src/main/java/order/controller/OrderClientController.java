@@ -24,7 +24,7 @@ public class OrderClientController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderDto>> getClientOrders(@RequestBody GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getClientOrders(@Valid @RequestBody GetByDates getByDates) {
         return service.getClientOrders(getByDates);
     }
 
@@ -39,17 +39,17 @@ public class OrderClientController {
      * mijoz qabul qildim deb belgilamagan orderlarni qaytaradi
      */
     @GetMapping("/not-received")
-    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(@RequestBody GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
         return service.getNotReceivedOrders(getByDates);
     }
 
     @GetMapping("/received")
-    public ResponseEntity<List<OrderDto>> getReceivedOrders(@RequestBody GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
         return service.received(getByDates);
     }
 
     @GetMapping("/rejected")
-    public ResponseEntity<List<OrderDto>> rejected(@RequestBody GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> rejected(@Valid @RequestBody GetByDates getByDates) {
         return service.rejected(getByDates);
     }
 }

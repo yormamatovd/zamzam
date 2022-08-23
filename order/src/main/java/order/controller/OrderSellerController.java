@@ -1,6 +1,7 @@
 package order.controller;
 
 import lombok.RequiredArgsConstructor;
+import order.model.GetByDates;
 import order.model.OrderDto;
 import order.service.OrderSellerService;
 import org.springframework.http.ResponseEntity;
@@ -15,29 +16,9 @@ public class OrderSellerController {
 
     private final OrderSellerService service;
 
-    @PutMapping("/accept")
-    public ResponseEntity<OrderDto> acceptOrder(@RequestParam(name = "orderId") Long orderId) {
-        return service.acceptOrder(orderId);
-    }
-
-    @PutMapping("/estimate-delivery")
-    public ResponseEntity<OrderDto> setEstimatedDateTime(@RequestParam(name = "time") Long dateTimeSeconds,
-                                                         @RequestParam(name = "orderId") Long orderId) {
-        return service.setEstimated(dateTimeSeconds,orderId);
-    }
-
-    @PutMapping("/reject")
-    public ResponseEntity<String> rejectOrder(@RequestParam(name = "reason") String reason,
-                                                         @RequestParam(name = "orderId") Long orderId) {
-        return service.reject(reason,orderId);
-    }
-
-
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderDto>> getSellerOrders(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
-                                                          @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates,
-                                                          @RequestParam(name = "by",required = false,defaultValue = "ALL") String by) {
-        return service.getSellerOrders(page, dates,by);
+    public ResponseEntity<List<OrderDto>> getSellerOrders(@RequestBody GetByDates getByDates) {
+        return service.getSellerOrders(getByDates);
     }
 
     @GetMapping("/today-work")
@@ -46,14 +27,29 @@ public class OrderSellerController {
     }
 
     @GetMapping("/delivered")
-    public ResponseEntity<List<OrderDto>> delivered(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
-                                                    @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates){
-        return service.delivered(page,dates);
-    }
-    @GetMapping("/rejected")
-    public ResponseEntity<List<OrderDto>> rejected(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
-                                                    @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates){
-        return service.rejected(page,dates);
+    public ResponseEntity<List<OrderDto>> delivered(@RequestBody GetByDates getByDates) {
+        return service.delivered(getByDates);
     }
 
+    @GetMapping("/rejected")
+    public ResponseEntity<List<OrderDto>> rejected(@RequestBody GetByDates getByDates) {
+        return service.rejected(getByDates);
+    }
+
+    @PutMapping("/accept")
+    public ResponseEntity<OrderDto> acceptOrder(@RequestParam(name = "orderId") Long orderId) {
+        return service.acceptOrder(orderId);
+    }
+
+    @PutMapping("/estimate-delivery")
+    public ResponseEntity<OrderDto> setEstimatedDateTime(@RequestParam(name = "time") Long dateTimeSeconds,
+                                                         @RequestParam(name = "orderId") Long orderId) {
+        return service.setEstimated(dateTimeSeconds, orderId);
+    }
+
+    @PutMapping("/reject")
+    public ResponseEntity<String> rejectOrder(@RequestParam(name = "reason") String reason,
+                                                         @RequestParam(name = "orderId") Long orderId) {
+        return service.reject(reason,orderId);
+    }
 }

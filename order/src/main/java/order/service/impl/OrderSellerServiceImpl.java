@@ -12,6 +12,7 @@ import order.exception.NotAcceptableException;
 import order.exception.NotFoundException;
 import order.helper.Helper;
 import order.mapper.MapstructMapper;
+import order.model.GetByDates;
 import order.model.OrderDto;
 import order.repository.OrderRepo;
 import order.service.OrderSellerService;
@@ -40,14 +41,14 @@ public class OrderSellerServiceImpl implements OrderSellerService {
     private final MapstructMapper mapper;
 
     @Override
-    public ResponseEntity<List<OrderDto>> getSellerOrders(Integer page, String[] dates, String by) {
+    public ResponseEntity<List<OrderDto>> getSellerOrders(GetByDates getByDates) {
         if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
-        Pageable pageable = PageRequest.of(page, 20);
+        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         List<Order> orders = new ArrayList<>();
-        if (!Arrays.isNullOrEmpty(dates)) {
-            for (String date : dates) {
+        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
+            for (String date : getByDates.getDates()) {
                 LocalDate dateTime = null;
                 try {
                     dateTime = LocalDate.parse(date, formatter);
@@ -140,15 +141,15 @@ public class OrderSellerServiceImpl implements OrderSellerService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> delivered(Integer page, String[] dates) {
+    public ResponseEntity<List<OrderDto>> delivered(GetByDates getByDates) {
         if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(page, 20);
+        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
 
-        if (!Arrays.isNullOrEmpty(dates)) {
-            for (String date : dates) {
+        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
+            for (String date : getByDates.getDates()) {
                 LocalDate dateTime = null;
                 try {
                     dateTime = LocalDate.parse(date, formatter);
@@ -171,15 +172,15 @@ public class OrderSellerServiceImpl implements OrderSellerService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> rejected(Integer page, String[] dates) {
+    public ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates) {
         if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(page, 20);
+        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
 
-        if (!Arrays.isNullOrEmpty(dates)) {
-            for (String date : dates) {
+        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
+            for (String date : getByDates.getDates()) {
                 LocalDate dateTime = null;
                 try {
                     dateTime = LocalDate.parse(date, formatter);

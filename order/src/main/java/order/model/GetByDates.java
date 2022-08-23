@@ -4,17 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class GetByDates {
 
-    private Integer page;
+    @Min(value = 0, message = "Page min value 0")
+    private Integer page = 0;
 
     private String[] dates;
-
-    public GetByDates(Integer page, String[] dates) {
-        this.page = (page == null ? 0 : page);
-        this.dates = dates;
-    }
 }

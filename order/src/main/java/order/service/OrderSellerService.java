@@ -1,5 +1,6 @@
 package order.service;
 
+import order.model.GetByDates;
 import order.model.OrderDto;
 import org.springframework.http.ResponseEntity;
 
@@ -9,7 +10,7 @@ public interface OrderSellerService {
 
     ResponseEntity<List<OrderDto>> getSellerOrdersDeliveryToday(Integer page);
 
-    ResponseEntity<List<OrderDto>> getSellerOrders(Integer page, String[] dates,String by);
+    ResponseEntity<List<OrderDto>> getSellerOrders(GetByDates getByDates);
 
     ResponseEntity<OrderDto> acceptOrder(Long orderId);
 
@@ -17,7 +18,7 @@ public interface OrderSellerService {
 
     ResponseEntity<String> reject(String reason, Long orderId);
 
-    ResponseEntity<List<OrderDto>> delivered(Integer page, String[] dates);
+    ResponseEntity<List<OrderDto>> delivered(GetByDates getByDates);
 
-    ResponseEntity<List<OrderDto>> rejected(Integer page, String[] dates);
+    ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates);
 }

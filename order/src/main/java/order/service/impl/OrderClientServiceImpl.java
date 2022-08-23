@@ -21,7 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -58,7 +60,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> getClientOrders(GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getClientOrders(@Valid @RequestBody GetByDates getByDates) {
         if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
@@ -103,7 +105,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
         if (Session.getUserType() != UserType.CLIENT_USER) throw new NotAcceptableException(ApiStatus.CLIENT_NOT_FOUND);
         List<Order> orders = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -134,7 +136,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> received(GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> received(@Valid @RequestBody GetByDates getByDates) {
         if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
@@ -166,7 +168,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> rejected(@Valid @RequestBody GetByDates getByDates) {
         if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
