@@ -18,4 +18,8 @@ public class MyExceptionHandler {
     public ResponseEntity<String> badRequest(BadCredentialsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
+    @ExceptionHandler(SystemException.class)
+    public ResponseEntity<String> badRequest(SystemException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
 }

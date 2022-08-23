@@ -3,6 +3,7 @@ package auth.service;
 import auth.enums.ApiStatus;
 import auth.exceptions.BadCredentialsException;
 import auth.exceptions.NotFoundException;
+import auth.exceptions.SystemException;
 import auth.feign.InfoTemplate;
 import auth.helper.Helper;
 import auth.jwt.JWTProvider;
@@ -10,6 +11,7 @@ import auth.model.InfoDto;
 import auth.model.LoginDto;
 import auth.model.token.TokenDto;
 import auth.model.token.TokenInfoDto;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,8 @@ public class AuthServiceImpl implements AuthService {
             response = infoTemplate.getMyPassword(dto.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
+            if (e instanceof FeignException.NotFound) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
+            throw new SystemException(ApiStatus.SERVER_ERROR);
         }
         if (response == null) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
         if (response.getStatusCodeValue() != 200) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
