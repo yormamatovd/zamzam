@@ -40,8 +40,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<ProductDto> get(Long id) {
-        Product byId = productRepo.findById(id).orElseThrow(() -> new NotFoundException(ApiStatus.PRODUCT_NOT_FOUND));
-        return ResponseEntity.ok(mapper.productToProductDto(byId));
+        Product product = productRepo.findById(id).orElseThrow(() -> new NotFoundException(ApiStatus.PRODUCT_NOT_FOUND));
+        return ResponseEntity.ok(mapper.productToProductDto(product));
     }
 
     @Override
@@ -78,6 +78,7 @@ public class ProductServiceImpl implements ProductService {
         product.setType(ProductType.valueOf(dto.getType()));
         product.setWeight(dto.getWeight());
         product.setSellerId(Session.getInfoId());
+        product.setPrice(dto.getPrice());
 
         productRepo.save(product);
 

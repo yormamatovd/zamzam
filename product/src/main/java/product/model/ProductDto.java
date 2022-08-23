@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import product.enums.ProductType;
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -30,7 +27,7 @@ public class ProductDto {
 
     private boolean active;
 
-    private SellerDto seller;
+    private Long sellerId;
 
     private Long price;
 }

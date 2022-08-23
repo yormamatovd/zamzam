@@ -2,18 +2,21 @@ package product.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import product.model.ProductDto;
 import product.model.ProductRegDto;
 import product.service.ProductService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
+@Validated
 public class ProductController {
 
     private final ProductService service;
@@ -24,7 +27,8 @@ public class ProductController {
     }
 
     @GetMapping("/seller-products")
-    public ResponseEntity<List<ProductDto>> getSellerProducts(@RequestParam Long sellerId, @RequestParam(required = false) Integer page) {
+    public ResponseEntity<List<ProductDto>> getSellerProducts(@RequestParam Long sellerId,
+                                                              @RequestParam(required = false,defaultValue = "0") @Min(value = 0,message = "WRONG_PAGE") Integer page) {
         return service.getSellerProducts(sellerId, page);
     }
 

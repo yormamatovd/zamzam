@@ -28,10 +28,10 @@ public class Product extends AbsMain {
     private ProductType type;
 
     @Column(nullable = false)
-    private Double capacity;
+    private Double capacity;    //ml sig`imi
 
     @Column(nullable = false)
-    private Double weight; //gramm
+    private Double weight;      //grams og`irligi
 
     @Column(nullable = false)
     private UUID photoId;
