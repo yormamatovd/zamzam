@@ -9,10 +9,15 @@ public interface OrderSellerService {
 
     ResponseEntity<List<OrderDto>> getSellerOrdersDeliveryToday(Integer page);
 
-    ResponseEntity<List<OrderDto>> getSellerOrders(Integer page, Long sinceDateTime, Long untilDateTime);
+    ResponseEntity<List<OrderDto>> getSellerOrders(Integer page, String[] dates,String by);
 
     ResponseEntity<OrderDto> acceptOrder(Long orderId);
 
     ResponseEntity<OrderDto> setEstimated(Long dateTimeSeconds, Long orderId);
 
+    ResponseEntity<String> reject(String reason, Long orderId);
+
+    ResponseEntity<List<OrderDto>> delivered(Integer page, String[] dates);
+
+    ResponseEntity<List<OrderDto>> rejected(Integer page, String[] dates);
 }

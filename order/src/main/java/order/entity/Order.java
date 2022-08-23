@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import order.entity.abs.AbsMain;
 import order.enums.OrderStatus;
+import order.enums.RejectReasons;
 import order.helper.Helper;
 
 import javax.persistence.*;
@@ -30,23 +31,28 @@ public class Order extends AbsMain {
     @Column(nullable = false)
     private Integer count;
 
-    private boolean acceptedBySeller;
-
     @Column(nullable = false)
     private Integer returnedBottlesAmount=0;
 
-    private Long clientReceivedDateTime;
+    private Long clientReceivedDateTime=0L;
 
     @Column(nullable = false,updatable = false)
     private Long orderedDateTime= Helper.currentSeconds();
 
-    private Long estimatedDeliveryDateTime;
+    private Long estimatedDeliveryDateTime=0L;
 
-    private Long sellerAcceptedDateTime;
+    private Long deliveredDateTime=0L;
+
+    private Long sellerAcceptedDateTime=0L;
+
+    private Long rejectedDateTime=0L;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status;
 
-    private Double paidAmount;
+    private Long paidAmount=0L;
+
+    @Enumerated(EnumType.STRING)
+    private RejectReasons reason;
 }

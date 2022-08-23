@@ -30,6 +30,7 @@ public class Helper {
     public static long currentSeconds() {
         return LocalDateTime.ofInstant(Instant.now(), ZoneId.of(serverTimeZone)).atZone(ZoneId.of(serverTimeZone)).toEpochSecond();
     }
+
     public static boolean hasDigit(String text) {
         for (int i = 0; i < text.length(); i++) {
             if (Character.isDigit(text.charAt(i))) return true;
@@ -39,5 +40,14 @@ public class Helper {
 
     public static ZonedDateTime currentZonedDateTime() {
         return LocalDateTime.ofInstant(Instant.now(), ZoneId.of(serverTimeZone)).atZone(ZoneId.of(serverTimeZone));
+    }
+
+    public static Long getStartTimeOfDay(LocalDate localDate) {
+        LocalDateTime startDayTime = LocalDateTime.of(localDate, LocalTime.of(0, 0, 0));
+        return startDayTime.toEpochSecond(currentZonedDateTime().getOffset());
+    }
+    public static Long getEndTimeOfDay(LocalDate localDate) {
+        LocalDateTime startDayTime = LocalDateTime.of(localDate, LocalTime.of(23,59,59));
+        return startDayTime.toEpochSecond(currentZonedDateTime().getOffset());
     }
 }

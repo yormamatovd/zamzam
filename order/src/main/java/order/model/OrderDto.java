@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,17 +18,22 @@ public class OrderDto {
 
     private Integer count;
 
-    private boolean acceptedBySeller;
+    private Integer bottles;
 
-    private Integer returnedBottlesAmount;
+    private String receivedTime;
 
-    private Long clientReceivedDateTime;
+    private String deliveredTime;
 
-    private Long orderedDateTime;
+    private String orderedTime;
 
-    private Long estimatedDeliveryDateTime;
-
-    private Long sellerAcceptedDateTime;
+    private String estimateDeliveryTime;
 
     private String status;
+
+    private String reason;
+
+    private String sum;
+
+    private String paid;
+
 }

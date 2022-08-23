@@ -15,50 +15,45 @@ public class OrderSellerController {
 
     private final OrderSellerService service;
 
-    /**
-     * This method for Global network
-     * This method for sellers
-     * @param orderId for which order is accepted
-     * @return OrderDto
-     */
     @PutMapping("/accept")
     public ResponseEntity<OrderDto> acceptOrder(@RequestParam(name = "orderId") Long orderId) {
         return service.acceptOrder(orderId);
     }
-    /**
-     * This method for Global network
-     * @param dateTimeSeconds for set when product is delivered
-     * @return OrderDto
-     */
+
     @PutMapping("/estimate-delivery")
     public ResponseEntity<OrderDto> setEstimatedDateTime(@RequestParam(name = "time") Long dateTimeSeconds,
                                                          @RequestParam(name = "orderId") Long orderId) {
         return service.setEstimated(dateTimeSeconds,orderId);
     }
 
-    /**
-     * This method for Global network
-     * This method for get seller orders
-     * @param page is which page
-     * @param sinceDateTime is start date time
-     * @param untilDateTime is end date time
-     * @return List of OrderDto
-     */
+    @PutMapping("/reject")
+    public ResponseEntity<String> rejectOrder(@RequestParam(name = "reason") String reason,
+                                                         @RequestParam(name = "orderId") Long orderId) {
+        return service.reject(reason,orderId);
+    }
+
+
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDto>> getSellerOrders(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
-                                                          @RequestParam(name = "since", required = false) Long sinceDateTime,
-                                                          @RequestParam(name = "until", required = false) Long untilDateTime) {
-        return service.getSellerOrders(page, sinceDateTime, untilDateTime);
+                                                          @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates,
+                                                          @RequestParam(name = "by",required = false,defaultValue = "ALL") String by) {
+        return service.getSellerOrders(page, dates,by);
     }
-    /**
-     * This method for Global network
-     * This method is used to get the seller's orders for delivery today
-     * @param page is which page
-     * @return List of OrderDto
-     */
+
     @GetMapping("/today-work")
     public ResponseEntity<List<OrderDto>> getSellerOrdersDeliveryToday(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page) {
         return service.getSellerOrdersDeliveryToday(page);
+    }
+
+    @GetMapping("/delivered")
+    public ResponseEntity<List<OrderDto>> delivered(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
+                                                    @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates){
+        return service.delivered(page,dates);
+    }
+    @GetMapping("/rejected")
+    public ResponseEntity<List<OrderDto>> rejected(@RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
+                                                    @RequestParam(name = "dates", required = false,defaultValue = "[]") String[] dates){
+        return service.rejected(page,dates);
     }
 
 }
