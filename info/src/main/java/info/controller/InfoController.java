@@ -1,25 +1,20 @@
 package info.controller;
 
 import info.model.ClientDto;
-import info.model.RegisterUserDto;
 import info.model.SellerDto;
-import info.model.info.InfoDto;
-import info.model.info.UpdateEmailDto;
-import info.model.info.UpdateNameSurnameDto;
-import info.model.info.UpdatePasswordDto;
-import info.model.token.TokenDto;
 import info.service.InfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/info")
 @RequiredArgsConstructor
+@Validated
 public class InfoController {
 
     private final InfoService service;
@@ -27,6 +22,10 @@ public class InfoController {
     @PostMapping("/exist-email")
     public ResponseEntity<Boolean> existEmail(@RequestParam(name = "email") String email) {
         return service.existByEmail(email);
+    }
+    @PostMapping("/exist-phone")
+    public ResponseEntity<Boolean> existPhone(@RequestParam(name = "phone") String phone) {
+        return service.existByPhone(phone);
     }
 
     @GetMapping("/client")
@@ -37,8 +36,11 @@ public class InfoController {
     ResponseEntity<SellerDto> getSellerInfo(@RequestParam(name = "sellerId") Long id) {
         return service.getSellerInfo(id);
     }
+
     @GetMapping("/sellers")
-    ResponseEntity<List<SellerDto>> getSellersInfo(@RequestParam(name = "page",required = false,defaultValue = "0") Integer page) {
+    ResponseEntity<List<SellerDto>> getSellersInfo(
+            @RequestParam(name = "page", required = false, defaultValue = "0")
+            @Min(value = 0, message = "WRONG_PAGE") Integer page) {
         return service.getSellersInfo(page);
     }
 

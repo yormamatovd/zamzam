@@ -29,7 +29,15 @@ public @interface Phone {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            if (value.length() != 9) return false;
+            return validation(value);
+        }
+
+        public static boolean isValid(String phone){
+            return validation(phone);
+        }
+
+        private static boolean validation(String phone) {
+            if (phone.length() != 9) return false;
             String[] phonePrefix = new String[]{
                     "99",
                     "95",
@@ -42,7 +50,7 @@ public @interface Phone {
                     "91",
             };
             for (String prefix : phonePrefix) {
-                if (value.startsWith(prefix)) return true;
+                if (phone.startsWith(prefix)) return true;
             }
             return false;
         }

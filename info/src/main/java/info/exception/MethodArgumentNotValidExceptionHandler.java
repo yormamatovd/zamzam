@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class MethodArgumentNotValidExceptionHandler {
         return processCustomFieldErrors(result.getFieldErrors());
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> methodParamNotValidException(ConstraintViolationException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage().substring(ex.getMessage().indexOf(':')).trim());
+    }
+
     private ResponseEntity<Error> processCustomFieldErrors(List<FieldError> fieldErrors) {
         Error error = new Error(HttpStatus.BAD_REQUEST.value(), "Validation error");
         for (FieldError fieldError : fieldErrors) {
@@ -42,6 +48,7 @@ public class MethodArgumentNotValidExceptionHandler {
 
     @Getter
     @Setter
+    static
     class Error {
         private final int status;
         private final String message;
@@ -55,12 +62,12 @@ public class MethodArgumentNotValidExceptionHandler {
         public void addFieldError(String objectName, String fieId, String message) {
             CustomFieldError error = new CustomFieldError(objectName, fieId, message);
             fieldErrors.add(error);
-
         }
     }
 
     @Getter
     @Setter
+    static
     class CustomFieldError {
         private String objectName;
         private String fieId;

@@ -9,6 +9,7 @@ import java.util.List;
 public interface InfoService {
 
     ResponseEntity<Boolean> existByEmail(String email);
+    ResponseEntity<Boolean> existByPhone(String phone);
 
     ResponseEntity<ClientDto> getClientInfo(Long id);
 

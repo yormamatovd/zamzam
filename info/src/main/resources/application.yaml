@@ -40,7 +40,7 @@ email:
 
 info:
   default:
-    photo-id: dfe0476f-7ae3-4dca-ae3a-f43c4ee8816d
+    photo-id: 295a68bb-790e-4415-b53c-426ee5161da3
 
 jwt:
   custom-secret-key: grgherherherher
