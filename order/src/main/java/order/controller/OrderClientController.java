@@ -42,14 +42,4 @@ public class OrderClientController {
     public ResponseEntity<List<OrderDto>> getNotReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
         return service.getNotReceivedOrders(getByDates);
     }
-
-    @GetMapping("/received")
-    public ResponseEntity<List<OrderDto>> getReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
-        return service.received(getByDates);
-    }
-
-    @GetMapping("/rejected")
-    public ResponseEntity<List<OrderDto>> rejected(@Valid @RequestBody GetByDates getByDates) {
-        return service.rejected(getByDates);
-    }
 }

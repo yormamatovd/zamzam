@@ -26,15 +26,6 @@ public class OrderSellerController {
         return service.getSellerOrdersDeliveryToday(page);
     }
 
-    @GetMapping("/delivered")
-    public ResponseEntity<List<OrderDto>> delivered(@RequestBody GetByDates getByDates) {
-        return service.delivered(getByDates);
-    }
-
-    @GetMapping("/rejected")
-    public ResponseEntity<List<OrderDto>> rejected(@RequestBody GetByDates getByDates) {
-        return service.rejected(getByDates);
-    }
 
     @PutMapping("/accept")
     public ResponseEntity<OrderDto> acceptOrder(@RequestParam(name = "orderId") Long orderId) {
@@ -52,4 +43,6 @@ public class OrderSellerController {
                                                          @RequestParam(name = "orderId") Long orderId) {
         return service.reject(reason,orderId);
     }
+
+
 }

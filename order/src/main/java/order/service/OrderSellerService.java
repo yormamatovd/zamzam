@@ -18,7 +18,5 @@ public interface OrderSellerService {
 
     ResponseEntity<String> reject(String reason, Long orderId);
 
-    ResponseEntity<List<OrderDto>> delivered(GetByDates getByDates);
 
-    ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates);
 }

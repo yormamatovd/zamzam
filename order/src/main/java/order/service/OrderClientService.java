@@ -16,8 +16,4 @@ public interface OrderClientService {
     ResponseEntity<OrderDto> cancelOrder(Long orderId);
 
     ResponseEntity<List<OrderDto>> getNotReceivedOrders(GetByDates getByDates);
-
-    ResponseEntity<List<OrderDto>> received(GetByDates getByDates);
-
-    ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates);
 }

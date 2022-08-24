@@ -21,9 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -60,8 +58,8 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> getClientOrders(@Valid @RequestBody GetByDates getByDates) {
-        if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
+    public ResponseEntity<List<OrderDto>> getClientOrders(GetByDates getByDates) {
+        if (Session.getUserType() != UserType.CLIENT_USER) throw new NotAcceptableException(ApiStatus.CLIENT_NOT_FOUND);
 
         List<Order> orders = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -99,13 +97,14 @@ public class OrderClientServiceImpl implements OrderClientService {
         if (!order.getClientId().equals(client.getInfo().getId())) throw new BadRequestException(ApiStatus.NOT_ACCESS);
 
         order.setActive(false);
+        order.setStatus(OrderStatus.CANCELED);
         orderRepo.save(order);
 
         return ResponseEntity.ok(mapper.orderToOrderDto(order));
     }
 
     @Override
-    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(@Valid @RequestBody GetByDates getByDates) {
+    public ResponseEntity<List<OrderDto>> getNotReceivedOrders(GetByDates getByDates) {
         if (Session.getUserType() != UserType.CLIENT_USER) throw new NotAcceptableException(ApiStatus.CLIENT_NOT_FOUND);
         List<Order> orders = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -135,67 +134,5 @@ public class OrderClientServiceImpl implements OrderClientService {
         ));
     }
 
-    @Override
-    public ResponseEntity<List<OrderDto>> received(@Valid @RequestBody GetByDates getByDates) {
-        if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
 
-        List<Order> orders = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
-
-        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
-            for (String date : getByDates.getDates()) {
-                LocalDate dateTime = null;
-                try {
-                    dateTime = LocalDate.parse(date, formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (dateTime == null) throw new NotAcceptableException(ApiStatus.NOT_ACCEPTABLE);
-                Page<Order> ordersPage = orderRepo.findAllByStatusAndSellerIdAndRejectedDateTimeBetweenAndActiveTrue(
-                        OrderStatus.RECEIVED, Session.getInfoId(), Helper.getStartTimeOfDay(dateTime), Helper.getEndTimeOfDay(dateTime), pageable);
-                orders.addAll(ordersPage.getContent());
-            }
-        } else {
-            Page<Order> ordersPage = orderRepo.findAllBySellerIdAndStatusAndActiveTrue(
-                    Session.getInfoId(), OrderStatus.RECEIVED, pageable);
-            orders.addAll(ordersPage.getContent());
-        }
-
-        return ResponseEntity.ok(mapper.orderToOrderDto(
-                orders.stream().sorted(Comparator.comparing(Order::getDeliveredDateTime)).collect(Collectors.toList())
-        ));
-    }
-
-    @Override
-    public ResponseEntity<List<OrderDto>> rejected(@Valid @RequestBody GetByDates getByDates) {
-        if (Session.getUserType() != UserType.CLIENT_USER) throw new NotFoundException(ApiStatus.CLIENT_NOT_FOUND);
-
-        List<Order> orders = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
-
-        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
-            for (String date : getByDates.getDates()) {
-                LocalDate dateTime = null;
-                try {
-                    dateTime = LocalDate.parse(date, formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (dateTime == null) throw new NotAcceptableException(ApiStatus.NOT_ACCEPTABLE);
-                Page<Order> ordersPage = orderRepo.findAllByStatusAndClientIdAndActiveTrueAndRejectedDateTimeBetween(
-                        OrderStatus.REJECTED, Session.getInfoId(), Helper.getStartTimeOfDay(dateTime), Helper.getEndTimeOfDay(dateTime), pageable);
-                orders.addAll(ordersPage.getContent());
-            }
-        } else {
-            Page<Order> ordersPage = orderRepo.findAllByClientIdAndStatusAndActiveTrue(
-                    Session.getInfoId(), OrderStatus.REJECTED, pageable);
-            orders.addAll(ordersPage.getContent());
-        }
-
-        return ResponseEntity.ok(mapper.orderToOrderDto(
-                orders.stream().sorted(Comparator.comparing(Order::getDeliveredDateTime)).collect(Collectors.toList())
-        ));
-    }
 }

@@ -90,7 +90,6 @@ public class OrderSellerServiceImpl implements OrderSellerService {
         return ResponseEntity.ok(mapper.orderToOrderDto(ordersPage.toList()));
     }
 
-
     @Override
     public ResponseEntity<OrderDto> acceptOrder(Long orderId) {
         if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
@@ -140,68 +139,7 @@ public class OrderSellerServiceImpl implements OrderSellerService {
         return ResponseEntity.ok("OK");
     }
 
-    @Override
-    public ResponseEntity<List<OrderDto>> delivered(GetByDates getByDates) {
-        if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
 
-        List<Order> orders = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
-
-        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
-            for (String date : getByDates.getDates()) {
-                LocalDate dateTime = null;
-                try {
-                    dateTime = LocalDate.parse(date, formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (dateTime == null) throw new NotAcceptableException(ApiStatus.NOT_ACCEPTABLE);
-                Page<Order> ordersPage = orderRepo.findAllByStatusAndSellerIdAndDeliveredDateTimeBetweenAndActiveTrue(
-                        OrderStatus.DELIVERED, Session.getInfoId(), Helper.getStartTimeOfDay(dateTime), Helper.getEndTimeOfDay(dateTime), pageable);
-                orders.addAll(ordersPage.getContent());
-            }
-        } else {
-            Page<Order> ordersPage = orderRepo.findAllBySellerIdAndStatusAndActiveTrue(Session.getInfoId(), OrderStatus.DELIVERED, pageable);
-            orders.addAll(ordersPage.getContent());
-        }
-
-        return ResponseEntity.ok(mapper.orderToOrderDto(
-                orders.stream().sorted(Comparator.comparing(Order::getDeliveredDateTime)).collect(Collectors.toList())
-        ));
-    }
-
-    @Override
-    public ResponseEntity<List<OrderDto>> rejected(GetByDates getByDates) {
-        if (Session.getUserType() != UserType.SELLER_USER) throw new NotFoundException(ApiStatus.SELLER_NOT_FOUND);
-
-        List<Order> orders = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Pageable pageable = PageRequest.of(getByDates.getPage(), 20);
-
-        if (!Arrays.isNullOrEmpty(getByDates.getDates())) {
-            for (String date : getByDates.getDates()) {
-                LocalDate dateTime = null;
-                try {
-                    dateTime = LocalDate.parse(date, formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (dateTime == null) throw new NotAcceptableException(ApiStatus.NOT_ACCEPTABLE);
-                Page<Order> ordersPage = orderRepo.findAllByStatusAndSellerIdAndRejectedDateTimeBetweenAndActiveTrue(
-                        OrderStatus.REJECTED, Session.getInfoId(), Helper.getStartTimeOfDay(dateTime), Helper.getEndTimeOfDay(dateTime), pageable);
-                orders.addAll(ordersPage.getContent());
-            }
-        } else {
-            Page<Order> ordersPage = orderRepo.findAllBySellerIdAndStatusAndActiveTrue(
-                    Session.getInfoId(), OrderStatus.REJECTED, pageable);
-            orders.addAll(ordersPage.getContent());
-        }
-
-        return ResponseEntity.ok(mapper.orderToOrderDto(
-                orders.stream().sorted(Comparator.comparing(Order::getDeliveredDateTime)).collect(Collectors.toList())
-        ));
-    }
 
 
 }
