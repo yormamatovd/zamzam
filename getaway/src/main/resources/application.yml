@@ -1,0 +1,12 @@
+server:
+  port: 8020
+spring:
+  application:
+    name: GATEWAY
+    
+    
+auth-location: http://localhost:8083/local/auth/check-token
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
