@@ -9,6 +9,7 @@ import auth.helper.Helper;
 import auth.jwt.JWTProvider;
 import auth.model.InfoDto;
 import auth.model.LoginDto;
+import auth.model.token.LoginTokenDto;
 import auth.model.token.TokenDto;
 import auth.model.token.TokenInfoDto;
 import feign.FeignException;
@@ -18,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -26,11 +29,13 @@ public class AuthServiceImpl implements AuthService {
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${jwt.expire-time-minutes}")
-    private Long expiration;
+    @Value("${jwt.access-token-expire-time-minutes}")
+    private Long accessExpiration;
+    @Value("${jwt.refresh-token-expire-time-minutes}")
+    private Long refreshExpiration;
 
     @Override
-    public ResponseEntity<TokenDto> login(LoginDto dto) {
+    public ResponseEntity<LoginTokenDto> login(LoginDto dto) {
 
         ResponseEntity<String> response;
         try {
@@ -41,26 +46,39 @@ public class AuthServiceImpl implements AuthService {
             throw new SystemException(ApiStatus.SERVER_ERROR);
         }
         if (response == null) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
-        if (response.getStatusCodeValue() != 200) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
-        if (response.getBody() == null) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
-
+        if (response.getStatusCodeValue() != 200 || response.getBody() == null)
+            throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
 
         if (passwordEncoder.matches(dto.getPassword(), response.getBody())) {
 
-            TokenInfoDto infoDto = new TokenInfoDto();
-            infoDto.setCreateTimeSeconds(Helper.currentSeconds());
-            infoDto.setExpireTimeSeconds(infoDto.getCreateTimeSeconds() + expiration * 60 * 1000);
-            infoDto.setLifetimeSeconds(expiration * 60 * 1000);
+            TokenInfoDto accessTokenInfo = new TokenInfoDto(Helper.currentSeconds(), Helper.currentSeconds() + accessExpiration * 60, accessExpiration * 60);
 
-            String token = jwtProvider.generateToken(dto.getUsername());
-            TokenDto tokenDto = new TokenDto();
-            tokenDto.setToken(token);
-            tokenDto.setTokenInfo(infoDto);
+            TokenInfoDto refreshTokenInfo = new TokenInfoDto(Helper.currentSeconds(), Helper.currentSeconds() + refreshExpiration * 60, refreshExpiration * 60);
 
-            return ResponseEntity.ok(tokenDto);
+            TokenDto accessToken = new TokenDto(jwtProvider.generateToken(dto.getUsername(), new Date(Helper.currentSeconds() * 1000 + accessExpiration * 60 * 1000)), accessTokenInfo);
+            TokenDto refreshToken = new TokenDto(jwtProvider.generateToken(dto.getUsername(), new Date(Helper.currentSeconds() * 1000 + refreshExpiration * 60 * 1000)), refreshTokenInfo);
+            return ResponseEntity.ok(new LoginTokenDto(accessToken, refreshToken));
         } else throw new BadCredentialsException(ApiStatus.WRONG_PASSWORD);
+    }
 
-
+    @Override
+    public ResponseEntity<TokenDto> refreshAccessToken(String refreshToken) {
+        String username = jwtProvider.getSubjectFromToken(refreshToken);
+        if (username != null) {
+            try {
+                infoTemplate.getMyId(username).getBody();
+                return ResponseEntity.ok(new TokenDto(
+                        jwtProvider.generateToken(username,
+                                new Date(Helper.currentSeconds() * 1000 + accessExpiration * 60 * 1000)),
+                        new TokenInfoDto(Helper.currentSeconds(),
+                                Helper.currentSeconds() + accessExpiration * 60,
+                                accessExpiration * 60)
+                ));
+            } catch (Exception e) {
+                throw new BadCredentialsException(ApiStatus.INVALID_TOKEN);
+            }
+        }
+        throw new BadCredentialsException(ApiStatus.INVALID_TOKEN);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package auth.controller;
 
 import auth.model.LoginDto;
+import auth.model.token.LoginTokenDto;
 import auth.model.token.TokenDto;
 import auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,12 @@ public class AuthController {
     private final AuthService service;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto dto) {
+    public ResponseEntity<LoginTokenDto> login(@Valid @RequestBody LoginDto dto) {
         return service.login(dto);
     }
 
-
-
+    @PostMapping("/refresh-access")
+    public ResponseEntity<TokenDto> refreshAccessToken(@RequestParam(name = "refreshToken") String refreshToken){
+        return service.refreshAccessToken(refreshToken);
+    }
 }

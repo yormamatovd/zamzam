@@ -15,15 +15,13 @@ public class JWTProvider {
 
     @Value("${jwt.key}")
     private String authKey;
-    @Value("${jwt.expire-time-minutes}")
-    private Long expiration;
 
-    public String generateToken(String email) {
+    public String generateToken(String subject, Date expiration) {
         return Jwts
                 .builder()
-                .setSubject(email)
+                .setSubject(subject)
                 .setIssuedAt(Helper.currentDate())
-                .setExpiration(new Date(Helper.currentSeconds() * 1000 + expiration * 60 * 1000))
+                .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS512, authKey)
                 .compact();
     }

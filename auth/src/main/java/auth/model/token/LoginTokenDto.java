@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TokenInfoDto {
-    private Long createTimeSeconds;
-    private Long expireTimeSeconds;
-    private Long lifetimeSeconds;
+public class LoginTokenDto {
+
+    private TokenDto accessToken;
+
+    private TokenDto refreshToken;
 }

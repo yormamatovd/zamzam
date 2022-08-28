@@ -9,5 +9,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 jwt:
-  expire-time-minutes: 60
+  access-token-expire-time-minutes: 60
+  refresh-token-expire-time-minutes: 120
   key: gfgergrehtherghjetnhjetoh
