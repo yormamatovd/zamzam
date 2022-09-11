@@ -26,4 +26,8 @@ public class AuthController {
     public ResponseEntity<TokenDto> refreshAccessToken(@RequestParam(name = "refreshToken") String refreshToken){
         return service.refreshAccessToken(refreshToken);
     }
+    @PostMapping("/access-code")
+    public ResponseEntity<Boolean> accessCode(@RequestParam Long id){
+        return service.sendAccessCode();
+    }
 }

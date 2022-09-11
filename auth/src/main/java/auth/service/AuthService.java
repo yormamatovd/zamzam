@@ -13,4 +13,7 @@ public interface AuthService {
     InfoDto checkToken(String authorization);
 
     ResponseEntity<TokenDto> refreshAccessToken(String refreshToken);
+
+    ResponseEntity<Boolean> sendAccessCode();
+
 }

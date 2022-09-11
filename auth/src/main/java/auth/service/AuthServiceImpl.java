@@ -98,4 +98,9 @@ public class AuthServiceImpl implements AuthService {
         }
         throw new BadCredentialsException(ApiStatus.INVALID_TOKEN);
     }
+
+    @Override
+    public ResponseEntity<Boolean> sendAccessCode() {
+        return null;
+    }
 }
