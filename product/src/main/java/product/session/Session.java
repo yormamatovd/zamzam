@@ -1,7 +1,6 @@
 package product.session;
 
 
-import lombok.Getter;
 import product.enums.UserType;
 
 

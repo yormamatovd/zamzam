@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import seller.model.InfoDto;
 import seller.model.RegisterUserDto;
-import seller.model.SellerDto;
 
-import java.util.List;
 
 @FeignClient("INFO")
 public interface InfoTemplate {
