@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+
+spring:
+  application:
+    name: ATTACHMENT
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: 2014
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
