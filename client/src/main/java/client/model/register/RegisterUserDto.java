@@ -2,7 +2,6 @@ package client.model.register;
 
 import client.annotations.Gmail;
 import client.annotations.Name;
-import client.annotations.Password;
 import client.annotations.Phone;
 import client.enums.UserType;
 import lombok.AllArgsConstructor;
