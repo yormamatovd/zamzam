@@ -1,20 +1,22 @@
 package info.service.impl;
 
 import com.google.gson.Gson;
+import info.common.MessageService;
 import info.entity.Info;
 import info.enums.ApiStatus;
 import info.enums.TokenActionType;
 import info.exception.BadRequestException;
 import info.exception.NotAcceptableException;
 import info.exception.NotFoundException;
+import info.feign.EmailTemplate;
 import info.helper.Helper;
+import info.model.MailDto;
 import info.model.info.UpdatePasswordDto;
 import info.model.token.CheckCodeDto;
 import info.model.token.ProfileTokenDto;
 import info.repository.InfoRepo;
 import info.jwt.JWTProvider;
 import info.session.Session;
-import info.service.EmailService;
 import info.service.UpdateVerifyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ import java.util.Optional;
 public class UpdateVerifyServiceImpl implements UpdateVerifyService {
 
     private final InfoRepo infoRepo;
-    private final EmailService emailService;
+    private final EmailTemplate emailTemplate;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
@@ -55,8 +57,8 @@ public class UpdateVerifyServiceImpl implements UpdateVerifyService {
         if (userOptional.isEmpty()) throw new NotFoundException(ApiStatus.USER_NOT_FOUND);
 
         Info info = userOptional.get();
-        emailService.sendMail(info.getEmail(),
-                "Sizning \"Zilol Suv\" ilovasidagi hisobingiz paroli o`zgartirildi.");
+        emailTemplate.sendMail(new MailDto(info.getEmail(),
+                MessageService.getMessage("PASSWORD_CHANGED")));
 
         info.setPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
         infoRepo.save(info);

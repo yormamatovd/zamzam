@@ -1,54 +1,52 @@
-package register.service.impl;
+package email.service;
 
-import lombok.RequiredArgsConstructor;
+import email.model.MailCodeDto;
+import email.model.MailDto;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import register.service.EmailService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
+import java.util.TreeMap;
 
 @Service
-@RequiredArgsConstructor
-public class EmailServiceImpl implements EmailService {
-    private final JavaMailSender javaMailSender;
-    private final VelocityEngine velocityEngine;
 
+public class EmailServiceImpl implements EmailService {
+    @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
+    private VelocityEngine velocityEngine;
+
+    @Value("${code-template}")
+    private String codeTemplate;
     @Value("${spring.mail.subject}")
     private String otpEmailSubject;
     @Value("${spring.mail.host}")
     private String mailFrom;
 
     @Override
-    public boolean sendMail(String email, String message) {
-        try {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(email);
-            msg.setSubject(otpEmailSubject);
-            msg.setText(message);
-            javaMailSender.send(msg);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public Boolean sendMail(MailDto mailDto) {
+        return null;
     }
 
     @Override
-    public boolean sendCode(String mailTo, String code) {
+    public Boolean sendCodeMail(MailCodeDto dto) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setSubject(code);
+            mimeMessageHelper.setSubject(dto.getCode());
             mimeMessageHelper.setFrom(mailFrom);
-            mimeMessageHelper.setTo(mailTo);
-            String s = geContentFromTemplate(code);
+            mimeMessageHelper.setTo(dto.getToEmail());
+            TreeMap<String, String> args = new TreeMap<>();
+            args.put("code", dto.getCode());
+            String s = geContentFromTemplate(codeTemplate, args);
             mimeMessageHelper.setText(s, true);
             javaMailSender.send(mimeMessageHelper.getMimeMessage());
             return true;
@@ -58,13 +56,13 @@ public class EmailServiceImpl implements EmailService {
         return false;
     }
 
-    public String geContentFromTemplate(String code) {
+    public String geContentFromTemplate(String templatePath, TreeMap<String, String> values) {
         StringWriter stringWriter = new StringWriter();
 
         try {
             VelocityContext velocityContext = new VelocityContext();
-            velocityContext.put("code", code);
-            velocityEngine.mergeTemplate("templates/send-code.vm", "UTF-8", velocityContext, stringWriter);
+            values.forEach(velocityContext::put);
+            velocityEngine.mergeTemplate(templatePath, "UTF-8", velocityContext, stringWriter);
             return stringWriter.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,4 +70,3 @@ public class EmailServiceImpl implements EmailService {
         return "";
     }
 }
-

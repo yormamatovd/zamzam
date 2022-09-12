@@ -2,7 +2,6 @@ package info.model;
 
 import info.annotation.Gmail;
 import info.annotation.Name;
-import info.annotation.Password;
 import info.annotation.Phone;
 import info.enums.UserType;
 import lombok.AllArgsConstructor;

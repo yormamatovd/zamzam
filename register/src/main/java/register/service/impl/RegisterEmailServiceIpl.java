@@ -12,18 +12,19 @@ import register.exceptions.BadRequestException;
 import register.exceptions.NotAcceptableException;
 import register.exceptions.SystemException;
 import register.feign.ClientTemplate;
+import register.feign.EmailTemplate;
 import register.feign.MainTemplate;
 import register.feign.SellerTemplate;
 import register.helper.Helper;
 import register.jwt.JWTProvider;
 import register.model.ClientDto;
+import register.model.MailCodeDto;
 import register.model.SellerDto;
 import register.model.register.OtpVerify;
 import register.model.register.RegisterUserDto;
 import register.model.token.ProfileTokenDto;
 import register.model.token.TokenDto;
 import register.model.token.TokenInfoDto;
-import register.service.EmailService;
 import register.service.RegisterEmailService;
 
 import java.util.Objects;
@@ -33,7 +34,7 @@ import java.util.Objects;
 public class RegisterEmailServiceIpl implements RegisterEmailService {
     private final ClientTemplate clientTemplate;
     private final SellerTemplate sellerTemplate;
-    private final EmailService emailService;
+    private final EmailTemplate emailTemplate;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final MainTemplate mainTemplate;
@@ -86,7 +87,7 @@ public class RegisterEmailServiceIpl implements RegisterEmailService {
 
 
         String otpCode = Helper.generateOTP(6);
-        emailService.sendCode(registerUserDto.getEmail(), otpCode);
+        emailTemplate.sendCodeMail(new MailCodeDto(registerUserDto.getEmail(), otpCode));
 
         long currentSeconds = Helper.currentSeconds();
         TokenInfoDto tokenInfoDto = new TokenInfoDto();

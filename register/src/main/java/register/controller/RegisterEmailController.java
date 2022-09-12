@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import register.enums.UserType;
-import register.model.ClientDto;
 import register.model.register.OtpVerify;
 import register.model.register.RegisterUserDto;
 import register.model.token.TokenDto;
